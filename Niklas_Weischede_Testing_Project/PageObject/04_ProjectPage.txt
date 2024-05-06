@@ -1,0 +1,88 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+Documentation:	
+
+Testing the functionality of the project.
+CRUD Operation: Create, Read, Update, Delete
+
+Before Status: User is logged into GitHub 
+After Status: Logged Out User In GitLab 
+Tags 	Project, TS-1-Project
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+	New_Blank_ProjectUrl = https://gitlab.com/projects/new#blank_project
+	New_Template_ProjectUrl = https://gitlab.com/projects/new#create_from_template
+	Username =	NiklasWeischede
+	Project_Name = Fundamentals Of Software Testing 
+	Updated_Project_Name =	Fundamentals Of Software Testing 2
+	Project_Slug = fundamentals-of-software-testing
+	ProjectUrl = https://gitlab.com/laurea175119/fundamentals-of-software-testing
+	Project_Visibility = Private
+	Template_ProjectUrl = https://gitlab.com/projects/new#create_from_template
+	Template = Ruby on Rails
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# Positive Test 
+
+Create Blank Project
+
+Go To New Blank Project Page New_Blank_ProjectUrl
+Input Project Name Project_Name
+Input Project Slug Project_Slug
+Select Project Visibility Project_Visibility
+Submit Project Creation Form
+Verify Page: Project 'Project_Name' was successfully created.
+
+Create Template Project
+
+Go To New Template Project Page New_Template_ProjectUrl
+Select Template Template
+Input Project Name Project_Name
+Input Project Slug Project_Slug
+Submit Project Creation Form
+Verify Page: the project was successfully imported.
+
+Update Name Of Template Project
+
+Go To ProjectUrl
+Select Project Settings
+Go To General
+Input New Project Name New_Project_Name
+Submit Save Changes
+Verify Page: Project 'New_Project_Name' was successfully updated.
+
+Delete Template Project
+
+Navigate To ProjectUrl
+Select Project Settings
+Expand Advanced Options
+Click Delete Project
+Input Project Name Username/Project_Name
+Delete Project
+Verify Page: 'Username/Project_Name' is in the process of being deleted.
+
+
+# Negative Test 
+
+Create a New Blank Project with the same name as before
+
+Go To New Blank Project Page New_Blank_ProjectUrl
+Input Project Name Project_Name
+Input Project Slug Project_Slug
+Select Project Visibility Private
+Submit Project Creation Form
+Verify Page: Name has already been taken
+
+

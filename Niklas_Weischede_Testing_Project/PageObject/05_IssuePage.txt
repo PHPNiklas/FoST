@@ -1,0 +1,66 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+Documentation:	
+
+Issue Testing  
+CRUD Operation: Create, Read, Update, Delete
+
+Before Status: Logged in User with an created project 
+After Status: Logged Out User with created issue on the project
+
+#******************* Common Variables ********************
+
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+Project_Name = Fundamentals Of Software Testing Project
+Username = NiklasWeischede
+IssuesUrl =	https://gitlab.com/laurea175119/fundamentals-of-software-testing/-/issues
+Issue_Name = IssueNiklas1
+New_Issue_Name = IssueNiklas2
+Cleared =			
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# Positive Test 
+
+Create Issue
+
+Go To Issue Page IssuesUrl
+Click New Issue
+Input Issue Name Issue_Name
+Submit New Issue Form
+Verification Page: Should Contain Issue created just now by Username
+
+Update Name Of Issue
+
+Go To Issue Page IssuesUrl
+Click Issue Issue_Name
+Click Edit
+Input New Issue Name New_Issue_Name
+Submit Edit Issue Form
+Verification Page:  Username changed title from Issue_Name to New_Issue_Name just now
+
+Create Second Issue With Before Updated Name
+
+Go To Issue Page IssuesUrl
+Click New Issue
+Input Issue Name New_Issue_Name
+Submit New Issue Form
+Verification Page: Issue created just now by Username
+	
+Delete First Issue
+
+Go To Issue Page IssuesUrl
+Click Issue New_Issue_Name
+Click Settings 
+Click Delete Issue
+Submit Delete Issue Form
+Verification Page: The issue was successfully deleted.

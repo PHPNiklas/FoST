@@ -1,0 +1,96 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+Documentation:
+Testing the the functionality of the by input tests on valid and invalid fields. 
+Before Status:	Open browser of your choice
+After Status:	Close all other browsers and clear the cache
+Tags	Register, TS-1-Register
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+RegisterUrl = https://gitlab.com/users/sign_up
+First_Name = Niklas
+Last_Name = Weischede
+Username = RedNiklas
+Email = niklas.weischede@student.fi
+Password = Studyredwedo123
+Invalid_Username = n
+Invalid_Password = n1
+Invalid_Email = Niklas.Weischede.fi
+Cleared = 
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# Positive Test
+
+Registered user with all valid variables
+
+Navigate To Register Page  RegisterUrl
+Input First Name  First_Name
+Input Last Name  Last_Name
+Input Username Username
+Input Email Email
+Input Password  Password
+Send Register Form
+Complete Verification 
+Welcome page
+	
+# Negative Test 
+
+Registered user with empty password 
+
+Navigate To Register Page  RegisterUrl
+Input First Name  First_Name
+Input Last Name  Last_Name
+Input Username Username
+Input Email Email
+Input Password Cleared
+Send Register Form
+Complete Verification 
+Verification page: Passowrd Minimum length is 8 characters 
+
+Registered user with invald Email
+
+Navigate To Register Page  RegisterUrl
+Input First Name  First_Name
+Input Last Name  Last_Name
+Input Username Username
+Input Email Invalid_Email
+Input Password Password
+Send Register Form
+Complete Verification 
+Verifiction page: Please provide a valid email address.
+
+Register User Without Completing Verification 
+
+Navigate To Register Page  RegisterUrl
+Input First Name  First_Name
+Input Last Name  Last_Name
+Input Username Username
+Input Email Email
+Input Password Password
+Send Register Form
+Verification Page: Complete verification to sign up.
+
+Registered user with identical username
+
+Navigate To Register Page  RegisterUrl
+Input First Name  First_Name
+Input Last Name  Last_Name
+Input Username Username
+Input Email Email
+Input Password  Password
+Send Register Form
+Complete Verification 
+Verification Page: Username is already taken
+
